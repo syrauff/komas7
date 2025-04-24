@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload and Prediction</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <link href="./src/output.css" rel="stylesheet">
+    <script src="./node_modules/flowbite/dist/flowbite.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <nav class="bg-green-600 border-gray-200 dark:bg-gray-900">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
+            <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="src/LOGO.png" class="h-10 bg-white rounded-full" alt="Flowbite Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">CornLab</span>
+            </a>
+            <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </button>
+            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+                <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-green-600 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li class="py-5 px-2">
+                        <a href="/" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Home</a>
+                    </li>
+                    <li class="py-5 px-2">
+                        <a href="/info.html" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Informasi</a>
+                    </li>
+                    <li class="py-5 px-2">
+                        <a href="/tentang.html" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Tentang Kami</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+  
+
+    <!-- <input type="file" id="file-upload" accept="image/*" multiple> -->
+
+    <div class="container px-4 mt-10">
+        <h1 class="text-3xl font-bold text-green-500 mb-5 text-center max-w-56 mx-auto rounded-md">
+            CornLab
+        </h1>
+        <section class="max-w-3xl mx-auto px-10 py-8">
+            <h1 class="text-3xl font-bold mb-4 text-center">Model Klasifikasi Daun Jagung</h1>
+            <div class="px-28 flex flex-col md:flex-row items-center md:items-start gap-6 mb-6 ">
+                <img src="image/ml_image.jpg" alt="Machine Learning" class="h-auto rounded-lg shadow-lg" style="width: 350px; margin-right: 10px;"/>
+              
+                <p class="text-gray-700 text-3xl">
+                  Model ini dikembangkan menggunakan teknologi pembelajaran mesin <strong>(Machine Learning)</strong> untuk mengklasifikasikan penyakit pada daun jagung berdasarkan gambar. 
+                  <br> <br>
+                  Model dilatih menggunakan dataset <a href="https://www.kaggle.com/datasets/smaranjitghose/corn-or-maize-leaf-disease-dataset" style="color: deepskyblue; text-decoration: underline;">Corn Leaf Disease Dataset</a>, dan dioptimalkan untuk mendeteksi gejala penyakit secara visual.
+                </p>
+            </div>
+
+
+            <h2 class="text-2xl font-semibold mb-6 text-center">Penyakit yang Dapat Dikenali</h2>
+<br>
+
+            <!-- Blight -->
+            <div class="px-6 md:px-28 flex flex-col md:flex-row items-center md:items-start gap-6 mb-10">
+                <img src="image/blight.png" alt="Blight" class="rounded-lg shadow-lg" style="height: 400px; max-width: 350px; margin-right: 20px; "/>
+                <div>
+                    <h3 class="text-3xl font-bold mb-2">Hawar Daun (Blight)</h3>
+                    <p class="text-gray-700 text-3xl">
+                    Penyakit ini disebabkan oleh jamur atau bakteri. Ditandai dengan pengeringan cepat pada tepi atau permukaan daun.
+                    </p>
+                </div>
+            </div>
+
+<br>
+            <!-- Gray Leaf Spot -->
+            <div class="px-6 md:px-28 flex flex-col md:flex-row items-center md:items-start gap-6 mb-10">
+                <img src="image/gray.png" alt="Gray Leaf Spot" class="w-48 h-auto rounded-lg shadow-lg" style="height: 400px; width: 350px; margin-right: 20px;"/>
+                <div>
+                    <h3 class="text-3xl font-bold mb-2">Bercak Daun Abu-Abu (Gray Leaf Spot)</h3>
+                    <p class="text-gray-700 text-3xl">
+                    Penyakit jamur yang menimbulkan bercak lonjong abu-abu pada permukaan daun, menghambat fotosintesis.
+                    </p>
+                </div>
+                </div>
+<br>
+
+            <!-- Common Rust -->
+            <div class="px-6 md:px-28 flex flex-col md:flex-row items-center md:items-start gap-6 mb-10">
+                <img src="image/common.png" alt="Common Rust" class=" h-auto rounded-lg shadow-lg" style="margin-right: 20px;"/>
+                <div>
+                    <h3 class="text-3xl font-bold mb-2">Karat Daun (Common Rust)</h3>
+                    <p class="text-gray-700 text-3xl">
+                    Disebabkan oleh jamur <em>Puccinia sorghi</em>, tampak berupa bintik berwarna coklat kemerahan menyerupai karat.
+                    </p>
+                </div>
+                </div>
+
+<br>
+            <!-- Healthy -->
+            <div class=" px-6 md:px-28 flex flex-col md:flex-row items-center md:items-start gap-6 mb-10">
+            <img src="image/sehat.png" alt="Healthy" class="w-48 h-auto rounded-lg shadow-lg" style=" margin-right: 20px;"/>
+            <div>
+                <h3 class="text-3xl font-bold mb-2">Tanaman Sehat (Healthy)</h3>
+                <p class="text-gray-700 text-3xl">
+                Daun jagung yang tidak menunjukkan gejala penyakit dan berada dalam kondisi baik.
+                </p>
+            </div>
+            </div>
+<br>
+            <!-- Lain-lain -->
+            <div class="px-6 md:px-28 flex flex-col md:flex-row items-center md:items-start gap-6 mb-10">
+            <img src="https://picsum.photos/300/200" alt="Lain-lain" class="w-48 h-auto rounded-lg shadow-lg" style=" margin-right: 20px;"/>
+            <div>
+                <h3 class="text-3xl font-bold mb-2">Lain-lain</h3>
+                <p class="text-gray-700 text-3xl">
+                Kategori ini digunakan jika citra tidak termasuk daun jagung atau tidak dapat dikenali oleh model.
+                </p>
+            </div>
+            </div>
+          
+            <h2 class="text-2xl font-semibold mt-8 mb-3 text-center">Tentang Model</h2>
+            <p class="text-gray-700">
+              Model ini menggunakan arsitektur CNN (Convolutional Neural Network) yang dioptimasi untuk klasifikasi gambar daun. Dataset telah melalui proses augmentasi dan preprocessing untuk meningkatkan akurasi dan ketahanan model terhadap berbagai kondisi gambar (pencahayaan, rotasi, dll).
+            </p>
+          </section>
+    </div>
+
+
+    
+    
+    <!-- <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- <script>
+    document.getElementById('output-bot').innerHTML =
+      marked.parse('# Marked in the browser\n\nRendered by **marked**.');
+  </script> -->
+  <script src="node_modules/flowbite/dist/flowbite.min.js"></script> -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll("nav ul li a");
+
+        navLinks.forEach(link => {
+            const linkPath = new URL(link.href).pathname;
+
+            // Jika jalur cocok, tambahkan kelas ke elemen <li> induk
+            if (linkPath === currentPath) {
+                const parentLi = link.parentElement;
+                parentLi.classList.add("border-b-4", "border-b-amber-300");
+            }
+        });
+    });
+  </script>
+</body>
+</html>
